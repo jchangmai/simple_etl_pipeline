@@ -5,4 +5,4 @@ SELECT
     '{{ var("indication_alert") }}' AS INDICATION_ALERT,
     DIAGNOSED_AHUS, TERRITORY_NAME, FILE_DATE,
     CURRENT_TIMESTAMP() AS LOADED_AT
-FROM KOMODO.RAW_KOMODO.{{ var(...) }}
+FROM {{ ref(var('alert_staging_table')) }}
