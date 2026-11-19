@@ -43,7 +43,7 @@ local_error = f'{LOCAL_STORAGE_ROOT}/commercial_ds/archive/ahus_prescriptive/fai
 # dbt Cloud job ID (Update 33333 to your actual dbt Cloud Job ID)
 dbtcloudjobs = json.loads(Variable.get(
     'DBTCLOUD_JOBS_JSON',
-    default_var=json.dumps({dag_id: 33333})
+    default_var=json.dumps({dag_id: 70506183146557})
 ))
 job_id = dbtcloudjobs[dag_id]
 

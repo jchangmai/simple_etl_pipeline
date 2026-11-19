@@ -18,7 +18,7 @@ jobs:
           DBT_API_TOKEN: ${{ secrets.DBT_API_TOKEN }}
         run: |
           curl --request POST \
-            --url "https://cloud.getdbt.com/api/v2/accounts/${DBT_ACCOUNT_ID}/jobs/${DBT_JOB_ID}/run/" \
+            --url "https://iw630.us1.dbt.com/api/v2/accounts/${DBT_ACCOUNT_ID}/jobs/${DBT_JOB_ID}/run/" \
             --header "Authorization: Token ${DBT_API_TOKEN}" \
             --header "Content-Type: application/json" \
             --data '{"cause": "GitHub Actions CI on ${{ github.sha }}"}'
