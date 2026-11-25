@@ -72,16 +72,16 @@ with DAG(
     )
 
     # 3. Branch A: Proceed if data exists (you can replace EmptyOperator with DbtCloudRunJobOperator when ready)
-    # proceed_with_dbt = EmptyOperator(
-    #     task_id='proceed_with_dbt',
-    # )
-    proceed_with_dbt = DbtCloudRunJobOperator(
+    proceed_with_dbt = EmptyOperator(
         task_id='proceed_with_dbt',
-        job_id=Variable.get("dbt_job_id"),  # Ensure you have set this Airflow Variable
-        account_id=Variable.get("dbt_account_id"),  # Ensure you have set this Airflow Variable
-        poll_interval=10,
-        timeout=600,
     )
+    # proceed_with_dbt = DbtCloudRunJobOperator(
+    #     task_id='proceed_with_dbt',
+    #     job_id=Variable.get("dbt_job_id"),  # Ensure you have set this Airflow Variable
+    #     account_id=Variable.get("dbt_account_id"),  # Ensure you have set this Airflow Variable
+    #     poll_interval=10,
+    #     timeout=600,
+    # )
 
     # 4. Branch B: End/Skip if no data exists
     no_data_found = EmptyOperator(
