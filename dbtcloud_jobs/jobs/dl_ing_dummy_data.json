@@ -1,0 +1,15 @@
+{
+  "name": "dl_ing_dummy_data",
+  "execute_steps": [
+    "dbt run --select active_users"
+  ],
+  "settings": {
+    "threads": 4,
+    "target_name": "default"
+  },
+  "triggers": {
+    "github_webhook": false,
+    "schedule": false,
+    "custom_branch_only": false
+  }
+}

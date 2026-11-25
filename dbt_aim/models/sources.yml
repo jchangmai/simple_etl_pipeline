@@ -6,3 +6,4 @@ sources:
     schema: RAW_KOMODO
     tables:
       - name: raw_ahus_prescriptive_alert_internal
+      - name: raw_users

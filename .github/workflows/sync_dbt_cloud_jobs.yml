@@ -1,0 +1,36 @@
+name: Sync dbt Cloud Jobs
+
+on:
+  push:
+    paths:
+      - 'dbtcloud_jobs/**'
+  pull_request:
+    paths:
+      - 'dbtcloud_jobs/**'
+  workflow_dispatch:
+
+jobs:
+  sync-jobs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          pip install requests
+
+      - name: Create Missing dbt Cloud Jobs
+        env:
+          DBT_CLOUD_API_TOKEN: ${{ secrets.DBT_CLOUD_API_TOKEN }}
+          DBT_CLOUD_ACCOUNT_ID: ${{ secrets.DBT_CLOUD_ACCOUNT_ID }}
+          DBT_CLOUD_PROJECT_ID: ${{ secrets.DBT_CLOUD_PROJECT_ID }}
+          DBT_CLOUD_ENVIRONMENT_ID: ${{ secrets.DBT_CLOUD_ENVIRONMENT_ID }}
+        run: |
+          python scripts/sync_dbt_cloud_jobs.py

@@ -1,0 +1,51 @@
+user_id,first_name,last_name,email,gender,age,city,signup_date,is_active
+1001,Susan,Hernandez,susan.hernandez60@gmail.com,Male,53,Austin,2024-09-18,True
+1002,Sarah,Williams,sarah.williams88@outlook.com,Female,29,Philadelphia,2024-10-04,True
+1003,Susan,Smith,susan.smith61@company.com,Male,64,Chicago,2024-02-14,True
+1004,Joseph,Jones,joseph.jones97@gmail.com,Male,37,Los Angeles,2023-04-04,True
+1005,Patricia,Brown,patricia.brown12@outlook.com,Other,35,New York,2024-09-09,True
+1006,Mary,Brown,mary.brown28@gmail.com,Other,33,San Diego,2023-02-05,True
+1007,Linda,Johnson,linda.johnson22@gmail.com,Other,61,Phoenix,2023-08-07,True
+1008,Joseph,Gonzalez,joseph.gonzalez41@hotmail.com,Other,21,Philadelphia,2024-07-28,True
+1009,Jennifer,Lopez,jennifer.lopez61@yahoo.com,Female,51,Austin,2024-06-11,True
+1010,Barbara,Smith,barbara.smith39@yahoo.com,Other,52,San Antonio,2024-06-13,True
+1011,William,Williams,william.williams94@outlook.com,Other,45,Chicago,2023-11-29,True
+1012,Jennifer,Brown,jennifer.brown83@outlook.com,Female,51,Austin,2023-01-03,True
+1013,Thomas,Hernandez,thomas.hernandez76@outlook.com,Other,60,New York,2023-07-21,True
+1014,Robert,Davis,robert.davis50@hotmail.com,Male,20,Houston,2023-12-19,True
+1015,Jessica,Williams,jessica.williams98@company.com,Other,23,Dallas,2023-12-07,True
+1016,Jessica,Anderson,jessica.anderson88@company.com,Female,48,Phoenix,2024-02-24,False
+1017,Mary,Gonzalez,mary.gonzalez27@hotmail.com,Other,30,Philadelphia,2024-03-31,True
+1018,Sarah,Martinez,sarah.martinez91@hotmail.com,Other,32,New York,2024-06-03,True
+1019,Elizabeth,Anderson,elizabeth.anderson32@yahoo.com,Male,21,Dallas,2023-05-20,False
+1020,Mary,Garcia,mary.garcia18@gmail.com,Other,39,Los Angeles,2024-05-12,True
+1021,Jennifer,Martinez,jennifer.martinez57@outlook.com,Other,54,Phoenix,2024-05-01,False
+1022,Jessica,Davis,jessica.davis58@outlook.com,Male,29,San Diego,2023-01-23,True
+1023,Elizabeth,Williams,elizabeth.williams59@hotmail.com,Female,63,Dallas,2024-05-08,True
+1024,Sarah,Martinez,sarah.martinez94@gmail.com,Other,54,Dallas,2023-03-07,False
+1025,John,Lopez,john.lopez49@outlook.com,Female,57,New York,2023-11-25,True
+1026,Jessica,Anderson,jessica.anderson97@company.com,Other,39,Chicago,2023-04-27,False
+1027,Karen,Martinez,karen.martinez93@hotmail.com,Other,58,Los Angeles,2023-09-11,True
+1028,Joseph,Wilson,joseph.wilson37@gmail.com,Male,39,San Diego,2024-06-06,True
+1029,Mary,Williams,mary.williams91@company.com,Other,26,Phoenix,2023-10-18,True
+1030,Linda,Davis,linda.davis72@outlook.com,Female,26,Philadelphia,2023-05-04,True
+1031,Joseph,Miller,joseph.miller35@hotmail.com,Male,60,San Diego,2024-02-01,True
+1032,Patricia,Jones,patricia.jones38@hotmail.com,Other,28,Philadelphia,2024-11-08,True
+1033,Robert,Williams,robert.williams58@outlook.com,Female,23,Philadelphia,2024-09-06,True
+1034,Sarah,Wilson,sarah.wilson36@yahoo.com,Female,24,San Antonio,2023-08-02,True
+1035,Thomas,Martinez,thomas.martinez81@outlook.com,Female,34,Austin,2023-05-15,True
+1036,William,Rodriguez,william.rodriguez20@hotmail.com,Female,56,Austin,2023-06-14,True
+1037,Richard,Wilson,richard.wilson15@outlook.com,Male,34,Los Angeles,2023-11-29,True
+1038,Linda,Garcia,linda.garcia42@hotmail.com,Female,35,San Diego,2023-02-11,True
+1039,John,Hernandez,john.hernandez82@company.com,Male,42,Austin,2024-05-09,False
+1040,David,Garcia,david.garcia58@outlook.com,Male,48,New York,2024-07-08,False
+1041,Patricia,Johnson,patricia.johnson97@company.com,Other,48,Chicago,2023-01-11,True
+1042,Susan,Williams,susan.williams34@gmail.com,Female,52,San Diego,2024-07-31,True
+1043,Sarah,Williams,sarah.williams83@hotmail.com,Other,42,San Diego,2023-11-07,True
+1044,William,Rodriguez,william.rodriguez69@yahoo.com,Male,29,New York,2024-10-21,True
+1045,Karen,Rodriguez,karen.rodriguez36@hotmail.com,Male,29,New York,2023-09-03,False
+1046,John,Garcia,john.garcia44@company.com,Female,36,San Diego,2024-07-01,True
+1047,Barbara,Lopez,barbara.lopez32@outlook.com,Female,28,San Antonio,2023-09-20,True
+1048,Sarah,Hernandez,sarah.hernandez57@outlook.com,Other,61,Los Angeles,2023-02-28,False
+1049,Linda,Jones,linda.jones24@yahoo.com,Male,45,Dallas,2024-09-05,True
+1050,Linda,Anderson,linda.anderson75@hotmail.com,Male,61,Dallas,2024-04-04,True

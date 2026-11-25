@@ -58,7 +58,7 @@ def get_snowflake_env_vars(conn_id, SNOWFLAKE_SCHEMA):
     }
 
 def verify_row_dq(row):
-    if len(row) != 65:
+    if len(row) != 64:
         return False
     alert_id, patient_id, npi, file_date = row[0], row[3], row[5], row[53]
     if not alert_id or not patient_id or not npi or len(file_date) != 8:
@@ -318,7 +318,9 @@ with DAG(dag_id=dag_id, tags=dag_tags, schedule_interval=schedule_interval, catc
     load_komodo_table = DbtCloudRunJobOperator(
         task_id="Load_Komodo_Table",
         dbt_cloud_conn_id='dbtcloud_conn_aim',
-        steps_override=["dbt run --vars '{alert_staging_table: " + staging_table_alert + ", patient_staging_table: " + staging_table_patient + ", indication_alert: " + indication_type + " " + alert_type +"}' -m komodo_alerts master_patient_id"],
+        steps_override=[
+            f"dbt run --vars '{json.dumps({'alert_staging_table': staging_table_alert, 'patient_staging_table': staging_table_patient, 'indication_alert': f'{indication_type} {alert_type}'})}' -m komodo_alerts master_patient_id"
+        ],
         additional_run_config=get_snowflake_env_vars(SNOWFLAKE_CONNECTION, SNOWFLAKE_SCHEMA='komodo'),
         job_id=job_id,
         wait_for_termination=True,
