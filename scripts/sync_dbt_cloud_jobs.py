@@ -7,8 +7,8 @@ import requests
 # All sensitive values come from environment variables (GitHub Secrets)
 # DBT_CLOUD_URL = os.environ.get("DBT_CLOUD_HOST_URL", "https://cloud.getdbt.com")
 DBT_CLOUD_URL = os.environ.get("DBT_CLOUD_HOST_URL", "https://iw630.us1.dbt.com")
-API_TOKEN = os.environ.get("DBT_CLOUD_API_TOKEN")
-ACCOUNT_ID = os.environ.get("DBT_CLOUD_ACCOUNT_ID")
+API_TOKEN = os.environ.get("DBT_API_TOKEN")
+ACCOUNT_ID = os.environ.get("DBT_ACCOUNT_ID")
 PROJECT_ID = os.environ.get("DBT_CLOUD_PROJECT_ID")
 ENVIRONMENT_ID = os.environ.get("DBT_CLOUD_ENVIRONMENT_ID")
 
