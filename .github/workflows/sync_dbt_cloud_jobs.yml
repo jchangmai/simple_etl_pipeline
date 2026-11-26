@@ -24,7 +24,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install requests
+          pip install requests snowflake-connector-python
 
       - name: Create Missing dbt Cloud Jobs
         env:
@@ -32,9 +32,8 @@ jobs:
           DBT_ACCOUNT_ID: ${{ secrets.DBT_ACCOUNT_ID }}
           DBT_CLOUD_PROJECT_ID: ${{ secrets.DBT_CLOUD_PROJECT_ID }}
           DBT_CLOUD_ENVIRONMENT_ID: ${{ secrets.DBT_CLOUD_ENVIRONMENT_ID }}
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
         run: |
           python scripts/sync_dbt_cloud_jobs.py
-
-
-
-

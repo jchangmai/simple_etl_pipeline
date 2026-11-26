@@ -76,7 +76,7 @@ with DAG(
         task_id='proceed_with_dbt',
         job_id=Variable.get("dbt_job_id"),
         account_id=Variable.get("dbt_account_id"),
-        poll_interval=10,
+        check_interval=10,
         timeout=600,
     )
 

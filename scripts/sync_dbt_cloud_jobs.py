@@ -3,36 +3,36 @@ import glob
 import json
 import sys
 import requests
+import snowflake.connector
+from datetime import datetime, timezone
 
 # All sensitive values come from environment variables (GitHub Secrets)
-# DBT_CLOUD_URL = os.environ.get("DBT_CLOUD_HOST_URL", "https://cloud.getdbt.com")
 DBT_CLOUD_URL = os.environ.get("DBT_CLOUD_HOST_URL", "https://iw630.us1.dbt.com")
 API_TOKEN = os.environ.get("DBT_API_TOKEN")
 ACCOUNT_ID = os.environ.get("DBT_ACCOUNT_ID")
 PROJECT_ID = os.environ.get("DBT_CLOUD_PROJECT_ID")
 ENVIRONMENT_ID = os.environ.get("DBT_CLOUD_ENVIRONMENT_ID")
 
+# Snowflake connection details
+SNOWFLAKE_ACCOUNT = os.environ.get("SNOWFLAKE_ACCOUNT")
+SNOWFLAKE_USER = os.environ.get("SNOWFLAKE_USER")
+SNOWFLAKE_PASSWORD = os.environ.get("SNOWFLAKE_PASSWORD")
+SNOWFLAKE_WAREHOUSE = os.environ.get("SNOWFLAKE_WAREHOUSE", "COMPUTE_WH")
+SNOWFLAKE_DATABASE = os.environ.get("SNOWFLAKE_DATABASE", "KOMODO")
+SNOWFLAKE_SCHEMA = os.environ.get("SNOWFLAKE_SCHEMA", "RAW_KOMODO")
 
-if not API_TOKEN:
-    print("Error: DBT_API_TOKEN is not set.", file=sys.stderr)
-    sys.exit(1)
-
-if not ACCOUNT_ID:
-    print("Error: DBT_ACCOUNT_ID is not set.", file=sys.stderr)
-    sys.exit(1)
-
-if not PROJECT_ID:
-    print("Error: DBT_CLOUD_PROJECT_ID is not set.", file=sys.stderr)
-    sys.exit(1)
-
-if not ENVIRONMENT_ID:
-    print("Error: DBT_CLOUD_ENVIRONMENT_ID is not set.", file=sys.stderr)
-    sys.exit(1)
+for var_name in ["DBT_API_TOKEN", "DBT_ACCOUNT_ID", "DBT_CLOUD_PROJECT_ID", "DBT_CLOUD_ENVIRONMENT_ID"]:
+    if not os.environ.get(var_name):
+        print(f"Error: {var_name} is not set.", file=sys.stderr)
+        sys.exit(1)
 
 headers = {
     "Authorization": f"Token {API_TOKEN}",
     "Content-Type": "application/json"
 }
+
+# Track newly created jobs for Snowflake insert
+newly_created_jobs = []
 
 def get_existing_jobs():
     """Fetch all existing jobs for the account."""
@@ -88,9 +88,63 @@ def create_or_check_job(filepath, existing_jobs):
         job_id = created_job.get("id")
         print(f"Successfully created job '{job_name}'! New Job ID: {job_id}")
         existing_jobs[job_name] = job_id
+
+        # Track this job for Snowflake insert
+        newly_created_jobs.append({
+            "job_id": job_id,
+            "job_name": job_name,
+            "account_id": int(ACCOUNT_ID),
+            "project_id": int(PROJECT_ID),
+            "environment_id": int(ENVIRONMENT_ID),
+        })
     else:
         print(f"Failed to create job '{job_name}': {resp.status_code} - {resp.text}", file=sys.stderr)
         sys.exit(1)
+
+def insert_jobs_into_snowflake(jobs):
+    """Insert newly created job records into Snowflake."""
+    if not jobs:
+        print("\nNo new jobs to insert into Snowflake.")
+        return
+
+    # Check if Snowflake credentials are available
+    if not all([SNOWFLAKE_ACCOUNT, SNOWFLAKE_USER, SNOWFLAKE_PASSWORD]):
+        print("Warning: Snowflake credentials not set. Skipping Snowflake insert.", file=sys.stderr)
+        return
+
+    print(f"\nInserting {len(jobs)} new job(s) into Snowflake...")
+
+    conn = snowflake.connector.connect(
+        account=SNOWFLAKE_ACCOUNT,
+        user=SNOWFLAKE_USER,
+        password=SNOWFLAKE_PASSWORD,
+        warehouse=SNOWFLAKE_WAREHOUSE,
+        database=SNOWFLAKE_DATABASE,
+        schema=SNOWFLAKE_SCHEMA,
+    )
+
+    try:
+        cur = conn.cursor()
+        insert_sql = """
+        INSERT INTO DBT_CLOUD_JOBS (JOB_ID, JOB_NAME, ACCOUNT_ID, PROJECT_ID, ENVIRONMENT_ID, CREATED_AT)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        """
+        now = datetime.now(timezone.utc)
+
+        for job in jobs:
+            cur.execute(insert_sql, (
+                job["job_id"],
+                job["job_name"],
+                job["account_id"],
+                job["project_id"],
+                job["environment_id"],
+                now,
+            ))
+            print(f"  Inserted: {job['job_name']} (ID: {job['job_id']})")
+
+        print("Snowflake insert complete.")
+    finally:
+        conn.close()
 
 def main():
     jobs_dir = os.path.join(os.path.dirname(__file__), "..", "dbtcloud_jobs")
@@ -107,6 +161,9 @@ def main():
 
     for filepath in json_files:
         create_or_check_job(filepath, existing_jobs)
+
+    # After all jobs are processed, insert new ones into Snowflake
+    insert_jobs_into_snowflake(newly_created_jobs)
 
 if __name__ == "__main__":
     main()
