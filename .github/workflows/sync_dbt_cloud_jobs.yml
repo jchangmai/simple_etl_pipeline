@@ -28,9 +28,13 @@ jobs:
 
       - name: Create Missing dbt Cloud Jobs
         env:
-          DBT_CLOUD_API_TOKEN: ${{ secrets.DBT_CLOUD_API_TOKEN }}
-          DBT_CLOUD_ACCOUNT_ID: ${{ secrets.DBT_CLOUD_ACCOUNT_ID }}
+          DBT_CLOUD_API_TOKEN: ${{ secrets.DBT_API_TOKEN }}
+          DBT_CLOUD_ACCOUNT_ID: ${{ secrets.DBT_ACCOUNT_ID }}
           DBT_CLOUD_PROJECT_ID: ${{ secrets.DBT_CLOUD_PROJECT_ID }}
           DBT_CLOUD_ENVIRONMENT_ID: ${{ secrets.DBT_CLOUD_ENVIRONMENT_ID }}
         run: |
           python scripts/sync_dbt_cloud_jobs.py
+
+
+
+
