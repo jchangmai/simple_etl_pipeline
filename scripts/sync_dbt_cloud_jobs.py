@@ -14,11 +14,11 @@ ENVIRONMENT_ID = os.environ.get("DBT_CLOUD_ENVIRONMENT_ID")
 
 
 if not API_TOKEN:
-    print("Error: DBT_CLOUD_API_TOKEN is not set.", file=sys.stderr)
+    print("Error: DBT_API_TOKEN is not set.", file=sys.stderr)
     sys.exit(1)
 
 if not ACCOUNT_ID:
-    print("Error: DBT_CLOUD_ACCOUNT_ID is not set.", file=sys.stderr)
+    print("Error: DBT_ACCOUNT_ID is not set.", file=sys.stderr)
     sys.exit(1)
 
 if not PROJECT_ID:
